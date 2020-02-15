@@ -1,13 +1,13 @@
 import 'package:mobx/mobx.dart';
 
-class WebPageStore {
+class BrazWebPageStore {
 
-  WebPageStore._privateConstructor(){
+  BrazWebPageStore._privateConstructor(){
     setBusy = Action(_setBusy);
     setIdle = Action(_setIdle);
   }
-  static final WebPageStore _instance = WebPageStore._privateConstructor();
-  factory WebPageStore() => _instance;
+  static final BrazWebPageStore _instance = BrazWebPageStore._privateConstructor();
+  factory BrazWebPageStore() => _instance;
   
   var status = Observable(WebPageStatus.idle);
 

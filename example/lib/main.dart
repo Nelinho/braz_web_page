@@ -1,4 +1,4 @@
-import 'package:braz_web_page/web_page.dart';
+import 'package:braz_web_page/braz_web_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: WebPageWidget(
+      home: BrazWebPageWidget(
         page: MyHomePage(title: 'Flutter Demo Home Page'),        
       )
     );
@@ -28,6 +28,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    
+    print('CURRENT ROUTE: ${BrazWebUtils.getCurrentRoute()}');
+
+    super.initState();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -46,18 +54,17 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               TextField(
                 decoration: InputDecoration(
-                  hintMaxLines: 2,
-                  helperText: 'Loose focus when tap outside and avoid keyboard panic :)',
+                  helperText: 'it loses the focus when taping outside and avoid keyboard panic :)',
                   hintText: 'your text here'
                 ),
               ),
               RaisedButton(
                 color: Theme.of(context).primaryColor,
-                child: Text('LOAD ALL DATA FROM INTERNET', style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),),
+                child: Text('DOWNLOAD ALL DATA FROM INTERNET', style: Theme.of(context).textTheme.button.copyWith(color: Colors.white),),
                 onPressed: () { 
-                  WebPageStore().setBusy();
+                  BrazWebPageStore().setBusy();
                   Future.delayed(Duration(seconds: 2), (){
-                    WebPageStore().setIdle();
+                    BrazWebPageStore().setIdle();
                   });
                  },
               )

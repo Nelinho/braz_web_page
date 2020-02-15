@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../web_page.dart';
+import '../../braz_web_page.dart';
 
-class WebPageWidget extends StatelessWidget {
+class BrazWebPageWidget extends StatelessWidget {
   
   final Widget page;
   final Widget loaderWidget;
-  const WebPageWidget({Key key, @required this.page, this.loaderWidget})
+  const BrazWebPageWidget({Key key, @required this.page, this.loaderWidget})
       : super(key: key);
 
   @override
@@ -24,7 +24,7 @@ class WebPageWidget extends StatelessWidget {
         return Stack(
           children: <Widget>[
             page,
-            WebPageStore().status.value == WebPageStatus.busy
+            BrazWebPageStore().status.value == WebPageStatus.busy
                 ? (this.loaderWidget ?? SimpleLoaderWidget())
                 : Container()
           ],
