@@ -6,8 +6,8 @@ import 'package:braz_web_page/braz_web_page.dart';
 void main() {
   test('Testing singleton store changes status correctly: iddle to busy', () {
     // testing a singleton is no worse than testing nothing :)
-    expect(BrazWebPageStore().status.value, WebPageStatus.idle);    
+    expect(BrazWebPageStore().status, WebPageStatus.idle);    
     BrazWebPageStore().setBusy();
-    expect(BrazWebPageStore().status.value, WebPageStatus.busy);
+    expect(BrazWebPageStore().status, WebPageStatus.busy);
   });
 }
