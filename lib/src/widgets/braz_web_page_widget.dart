@@ -8,13 +8,13 @@ import '../../braz_web_page.dart';
 class BrazWebPageWidget extends StatefulWidget {
   final Widget page;
   final Widget loaderWidget;
-  final bool listenToInternetConnection;
+  final bool showSnackbarWhenInternetStatusChange;
 
   BrazWebPageWidget(
       {Key key,
       @required this.page,
       this.loaderWidget,
-      this.listenToInternetConnection = true})
+      this.showSnackbarWhenInternetStatusChange = true})
       : super(key: key);
 
   @override
@@ -22,7 +22,6 @@ class BrazWebPageWidget extends StatefulWidget {
 }
 
 class _BrazWebPageWidgetState extends State<BrazWebPageWidget> {
-  
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   Dispose _disposeInternetConnectionSubscription;
 
@@ -34,23 +33,27 @@ class _BrazWebPageWidgetState extends State<BrazWebPageWidget> {
 
   @override
   void initState() {
-    _disposeInternetConnectionSubscription = BrazWebPageStore().isOnline.observe((ChangeNotification<bool> isOnline) {
-      
-      if (!BrazWebPageStore().enableSnackbarInternetConnectionMessage) return;
-      if (isOnline.newValue == isOnline.oldValue) return;
+    if (widget.showSnackbarWhenInternetStatusChange == true) {
+      _disposeInternetConnectionSubscription = BrazWebPageStore()
+          .isOnline
+          .observe((ChangeNotification<bool> isOnline) {
+        if (!BrazWebPageStore().enableSnackbarInternetConnectionMessage) return;
+        if (isOnline.newValue == isOnline.oldValue) return;
 
-      if (isOnline.newValue == false) {
-        try {
-          _scaffoldKey?.currentState?.removeCurrentSnackBar();
-          _scaffoldKey?.currentState?.showSnackBar(snackbarDisconnected());
-        } catch (e) {}
-      } else {
-        try {
-          _scaffoldKey?.currentState?.removeCurrentSnackBar();
-          _scaffoldKey?.currentState?.showSnackBar(snackbarConnected());
-        } catch (e) {}
-      }
-    }, fireImmediately: true);
+        if (isOnline.newValue == false) {
+          try {
+            _scaffoldKey?.currentState?.removeCurrentSnackBar();
+            _scaffoldKey?.currentState?.showSnackBar(snackbarDisconnected());
+          } catch (e) {}
+        } else {
+          try {
+            _scaffoldKey?.currentState?.removeCurrentSnackBar();
+            _scaffoldKey?.currentState?.showSnackBar(snackbarConnected());
+          } catch (e) {}
+        }
+      }, fireImmediately: true);
+    }
+
     super.initState();
   }
 

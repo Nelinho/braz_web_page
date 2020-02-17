@@ -15,6 +15,11 @@ class MyApp extends StatelessWidget {
         ),
         home: BrazWebPageWidget(
           page: MyHomePage(title: 'BrazWebPageWidget'),
+          loaderWidget: SimpleLoaderWidget(
+            circularProgressColor: Colors.white,
+            backgroundColor: Colors.black.withOpacity(.8),
+          ),
+          showSnackbarWhenInternetStatusChange: true,
         ));
   }
 }
