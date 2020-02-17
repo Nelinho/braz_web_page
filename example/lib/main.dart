@@ -36,6 +36,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   @override
+  void initState() {
+
+    // Change default snackbar texts
+    BrazWebPageStore().snackBarLabels = SnackBarLabels(offlineText: 'Desconectado!', onlineText: 'Conectado');
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 

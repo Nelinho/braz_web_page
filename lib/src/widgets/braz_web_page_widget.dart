@@ -1,4 +1,4 @@
-import 'package:braz_web_page/src/widgets/toast_internet_connection/simple_toast_internet_connection.dart';
+import 'package:braz_web_page/src/widgets/snackbars/snackbars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';

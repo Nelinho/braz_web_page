@@ -5,7 +5,7 @@ Widget snackbarDisconnected() => SnackBar(
     duration: Duration(minutes: 1),
     backgroundColor: Colors.red,
     content: Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(BrazWebPageStore().snackBarLabels.offlineText),
         SizedBox(

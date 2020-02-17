@@ -6,26 +6,28 @@ import 'package:mobx/mobx.dart';
 class BrazWebPageStore implements IDisposable {
 
   BrazWebPageStore._privateConstructor(){
+
     setBusy = Action(_setBusy);
     setIdle = Action(_setIdle);
     changeStatusConnection = Action(_changeStatusConnection);
+    changeRttConnection = Action(_changeRttConnection);
 
     _onInternetConnection = window?.navigator?.connection?.onChange;
     if (_onInternetConnection != null) {
       _internetConnectionSubscription = _onInternetConnection
       .listen((event) {
-        changeStatusConnection();
+        changeRttConnection();
       });
     }
+
+    _registerEventListenerOnLineOffLine();
     
   }
   static final BrazWebPageStore _instance = BrazWebPageStore._privateConstructor();
   factory BrazWebPageStore() => _instance;
   
   bool enableSnackbarInternetConnectionMessage = true;
-  SnackBarConnectionLabels _snackBarInternetConnectionLabels = SnackBarConnectionLabels();
-  set snackBarLabels(SnackBarConnectionLabels value) => _snackBarInternetConnectionLabels = value;
-  SnackBarConnectionLabels get snackBarLabels => _snackBarInternetConnectionLabels;
+  SnackBarLabels snackBarLabels = SnackBarLabels();
 
   Observable<WebPageStatus> _status = Observable(WebPageStatus.idle);
   WebPageStatus get status => _status.value;
@@ -44,7 +46,17 @@ class BrazWebPageStore implements IDisposable {
   Action changeStatusConnection;
   void _changeStatusConnection () {
     isOnline.value = window?.navigator?.onLine ?? true;
+  }
+
+  Action changeRttConnection;
+  void _changeRttConnection () {    
     rtt.value = window?.navigator?.connection?.rtt;
+  }
+
+  // Ensures greater compatibility among browsers
+  void _registerEventListenerOnLineOffLine(){
+    window.onOnline.listen((event) => changeStatusConnection());
+    window.onOffline.listen((event) => changeStatusConnection());
   }
 
   @override
@@ -53,10 +65,10 @@ class BrazWebPageStore implements IDisposable {
   }
 }
 
-class SnackBarConnectionLabels{
+class SnackBarLabels{
   final String onlineText;
   final String offlineText;
-  SnackBarConnectionLabels({this.onlineText = 'Connected', this.offlineText = 'No internet connection!'});
+  SnackBarLabels({this.onlineText = 'Connected', this.offlineText = 'No internet connection!'});
 }
 
 enum WebPageStatus {busy, idle}
