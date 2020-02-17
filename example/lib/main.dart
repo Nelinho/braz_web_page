@@ -5,6 +5,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+  MyApp(){
+    // Change default snackbar texts
+    BrazWebPageStore().snackBarLabels = SnackBarLabels(offlineText: 'Desconectado!', onlineText: 'Conectado');
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -37,10 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-
-    // Change default snackbar texts
-    BrazWebPageStore().snackBarLabels = SnackBarLabels(offlineText: 'Desconectado!', onlineText: 'Conectado');
-
     super.initState();
   }
 

@@ -51,7 +51,7 @@ class _BrazWebPageWidgetState extends State<BrazWebPageWidget> {
             _scaffoldKey?.currentState?.showSnackBar(snackbarConnected());
           } catch (e) {}
         }
-      }, fireImmediately: true);
+      }, fireImmediately: false);
     }
 
     super.initState();
