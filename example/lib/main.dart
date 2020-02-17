@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: BrazWebPageWidget(
+        home: BrazWebPageWidget( // Wrap you page with BrazWebPageWidget
           page: MyHomePage(title: 'BrazWebPageWidget'),
-          loaderWidget: SimpleLoaderWidget(
+            loaderWidget: SimpleLoaderWidget(
             circularProgressColor: Colors.white,
             backgroundColor: Colors.black.withOpacity(.8),
           ),
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Observer(builder: (_) {
-                bool isConnected = BrazWebPageStore().isOnline.value;
+                bool isConnected = BrazWebPageStore().connectivity.isOnline.value;
                 return isConnected
                     ? Icon(Icons.signal_wifi_4_bar, color: Colors.green)
                     : Icon(Icons.signal_wifi_off, color: Colors.red);
@@ -91,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               _getRow('CURRENT ROUTE:', '${BrazWebUtils.getCurrentRoute()}'),
-                              _getRow('INTERNET CONNECTED:', '${BrazWebPageStore().isOnline.value}'),
-                              _getRow('INTERNET INFO:', '${BrazWebUtils.getInternetQualityInfo(BrazWebPageStore().rtt?.value).toString().split('.')[1]} (${BrazWebPageStore().rtt?.value})'),
+                              _getRow('INTERNET CONNECTED:', '${BrazWebPageStore().connectivity.isOnline.value}'),
+                              _getRow('INTERNET INFO:', '${BrazWebUtils.getInternetQualityInfo(BrazWebPageStore().connectivity.rtt?.value).toString().split('.')[1]} (${BrazWebPageStore().connectivity.rtt?.value})'),
                               _getRow('HAS QUERY PARAMS:', '${BrazWebUtils.getQueryParams().isNotEmpty}'),
                               _getRow('QUERY PARAMS:', '${BrazWebUtils.getQueryParams()}'),
                               _getRow('SHOW SNACKBAR WHEN CONNECTION CHANGE:', '${BrazWebPageStore().enableSnackbarInternetConnectionMessage}'),

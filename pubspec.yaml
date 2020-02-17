@@ -1,7 +1,7 @@
 name: braz_web_page
 description: A simple widget page template with hacks for web
 version: 0.0.1
-author:
+author: Emanuel Braz (fastencoding@gmail.com)
 homepage:
 
 environment:
@@ -12,6 +12,9 @@ dependencies:
     sdk: flutter
   mobx: ^1.0.1
   flutter_mobx: ^1.0.1
+
+  connectivity_web:
+    git: https://github.com/emanuel-braz/connectivity_web.git
 
 dev_dependencies:
   flutter_test:

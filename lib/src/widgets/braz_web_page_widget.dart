@@ -34,7 +34,7 @@ class _BrazWebPageWidgetState extends State<BrazWebPageWidget> {
   @override
   void initState() {
     if (widget.showSnackbarWhenInternetStatusChange == true) {
-      _disposeInternetConnectionSubscription = BrazWebPageStore()
+      _disposeInternetConnectionSubscription = BrazWebPageStore().connectivity
           .isOnline
           .observe((ChangeNotification<bool> isOnline) {
         if (!BrazWebPageStore().enableSnackbarInternetConnectionMessage) return;

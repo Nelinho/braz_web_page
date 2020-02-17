@@ -43,6 +43,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.14.11"
+  connectivity_web:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: HEAD
+      resolved-ref: "883553ed3d87befbc329996f8020df37412933ec"
+      url: "https://github.com/emanuel-braz/connectivity_web.git"
+    source: git
+    version: "0.0.1"
   convert:
     dependency: transitive
     description:
