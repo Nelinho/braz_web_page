@@ -10,8 +10,13 @@ class BrazWebPageStore implements IDisposable {
     setIdle = Action(_setIdle);
     changeStatusConnection = Action(_changeStatusConnection);
 
-    _internetConnectionSubscription = _onInternetConnection
-      .listen((event) => changeStatusConnection());
+    _onInternetConnection = window?.navigator?.connection?.onChange;
+    if (_onInternetConnection != null) {
+      _internetConnectionSubscription = _onInternetConnection
+      .listen((event) {
+        changeStatusConnection();
+      });
+    }
     
   }
   static final BrazWebPageStore _instance = BrazWebPageStore._privateConstructor();
@@ -25,7 +30,7 @@ class BrazWebPageStore implements IDisposable {
   Observable<WebPageStatus> _status = Observable(WebPageStatus.idle);
   WebPageStatus get status => _status.value;
 
-  Stream<Event> _onInternetConnection = window.navigator.connection.onChange;
+  Stream<Event> _onInternetConnection;
   StreamSubscription<Event> _internetConnectionSubscription;
   Observable<bool> isOnline = Observable(true);
   Observable<int> rtt = Observable(0);
